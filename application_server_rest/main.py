@@ -1,164 +1,68 @@
-from fastapi import FastAPI
-import requests
-from starlette.responses import JSONResponse, Response
+from fastapi import FastAPI, Depends, Header, HTTPException
+from routes import authenticate, databases, file_providers, module_profiles, modules, users, user_profiles
+
 
 app = FastAPI()
 
-############################################
-#            AUTHENTICATION
-############################################
-@app.post("/authenticate")
-def authenticate(username: str, password: str):
-    """
-    Retourne un le client-id nécessaire pour authentifier les applications clientes et les applications d’administration.
-    :param username: Nom de l'utilisateur
-    :param passwrod: Mot de passe de l'utilisateur
-    :return: {client-id : 9b48918efdad507a55154569ee7ade08005ac494cd528dc63986682776842e80}
-    """
-    content = {"message": "Hello World"}
-    headers = {"application/json": "alone in the world"}
-    r = Response()
-    r.headers["application/json"] = "application/json"
-    return r
-    # return JSONResponse(content=content, headers=headers)
+
+async def get_token_header(x_token: str = Header(...)):
+    if x_token != "fake-super-secret-token":
+        raise HTTPException(status_code=400, detail="X-Token header invalid")
+
+app.include_router(
+    authenticate.route,
+    prefix="/authenticate",
+    tags=["Authenticate"],
+    dependencies=[Depends(get_token_header)],
+    responses={404: {"description": "Not found"}},
+)
 
 
-@app.post("/authenticate-user")
-def authenticate_user(username: str, passwrod: str):
-    """
-    Retourne le token de session nécessaire pour utiliser l’API REST.
-    :param username: Nom de l'utilisateur
-    :param passwrod: Mot de passe de l'utilisateur
-    :return:{session-token : 3c469e9d6c5875d37a43f353d4f88e61fcf812c66eee3457465a40b0da4153e0}
-    """
-    pass
+app.include_router(
+    modules.route,
+    prefix="/modules",
+    tags=["Modules"],
+    dependencies=[Depends(get_token_header)],
+    responses={404: {"description": "Not found"}},
 
+)
 
-############################################
-#                 MODULES
-############################################
-@app.get("/modules")
-def list_modules():
-    pass
+app.include_router(
+    module_profiles.route,
+    prefix="/module-profiles",
+    tags=["Module Profiles"],
+    dependencies=[Depends(get_token_header)],
+    responses={404: {"description": "Not found"}},
+)
 
+app.include_router(
+    users.route,
+    prefix="/users",
+    tags=["Users"],
+    dependencies=[Depends(get_token_header)],
+    responses={404: {"description": "Not found"}},
+)
 
-@app.get("/modules/{module_id}")
-def get_module(module_id: int):
-    pass
+app.include_router(
+    user_profiles.route,
+    prefix="/user-profiles",
+    tags=["User Profiles"],
+    dependencies=[Depends(get_token_header)],
+    responses={404: {"description": "Not found"}},
+)
 
+app.include_router(
+    file_providers.route,
+    prefix="/file-providers",
+    tags=["File Providers"],
+    dependencies=[Depends(get_token_header)],
+    responses={404: {"description": "Not found"}, 405: {"description": "Not found"}},
+)
 
-@app.post("modules/install/{module_id}/{database_id}")
-def module_install(module_id: int, database_id: int):
-    pass
-
-
-@app.post("modules/install/{module_id}")
-def module_install_everywhere(module_id: int):
-    pass
-
-
-@app.post("/modules/update/{module_id}/{database_id}")
-def module_update(module_id: int, database_id: int):
-    pass
-
-
-@app.post("/modules/uninstall/{module_id}/{database_id}")
-def module_uninstall(module_id: int, database_id: int):
-    pass
-
-
-############################################
-#                 USERS
-############################################
-@app.get("/users")
-def list_users():
-    pass
-
-
-@app.post("/users")
-def create_users():
-    pass
-
-
-@app.post("/users/{user_id}")
-def update_users(user_id: int):
-    pass
-
-
-@app.delete("/users/{user_id}")
-def delete_users(user_id: int):
-    pass
-
-
-############################################
-#           MODULE PROFILES
-############################################
-@app.get("/module-profiles")
-def list_module_profiles():
-    pass
-
-
-@app.post("/module-profiles")
-def create_module_profiles():
-    pass
-
-
-@app.post("/module-profiles/{module_profile_id}")
-def update_module_profiles(module_profile_id: int):
-    pass
-
-
-@app.delete("/module-profiles/{module_profile_id}")
-def delete_module_profiles(module_profile_id: int):
-    pass
-
-############################################
-#              USER PROFILES
-############################################
-@app.get("/user-profiles")
-def list_user_profiles():
-    pass
-
-
-@app.post("/user-profiles")
-def create_user_profiles():
-    pass
-
-
-@app.post("/user-profiles/{user_profile_id}")
-def update_user_profiles(user_profile_id: int):
-    pass
-
-
-@app.delete("/user-profiles/{user_profile_id}")
-def delete_user_profiles(user_profile_id: int):
-    pass
-
-############################################
-#               FILE PROVIDERS
-############################################
-@app.get("/file-providers")
-def list_file_providers():
-    pass
-
-
-@app.post("/file-providers")
-def create_file_providers():
-    pass
-
-
-@app.post("/file-providers/{file_provider_id}")
-def update_file_providers(file_provider_id: int):
-    pass
-
-
-@app.delete("/file-providers/{file_provider_id}")
-def delete_file_providers(file_provider_id: int):
-    pass
-
-############################################
-#               DATABASE
-############################################
-@app.get("/databases")
-def list_databases():
-    pass
+app.include_router(
+    databases.route,
+    prefix="/databases",
+    tags=["Databases"],
+    dependencies=[Depends(get_token_header)],
+    responses={404: {"description": "Not found"}},
+)
