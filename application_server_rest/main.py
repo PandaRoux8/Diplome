@@ -5,16 +5,15 @@ from routes import authenticate, databases, file_providers, module_profiles, mod
 app = FastAPI()
 
 
-async def get_token_header(x_token: str = Header(...)):
-    if x_token != "fake-super-secret-token":
-        raise HTTPException(status_code=400, detail="X-Token header invalid")
+async def get_token_header(session_token: str = Header(...)):
+    if session_token != "fake-super-secret-token":
+        raise HTTPException(status_code=400, detail="Session-Token invalid")
 
 app.include_router(
     authenticate.route,
     prefix="/authenticate",
     tags=["Authenticate"],
-    dependencies=[Depends(get_token_header)],
-    responses={404: {"description": "Not found"}},
+    responses={405: {"description": "Wrong username or password"}},
 )
 
 
@@ -22,8 +21,7 @@ app.include_router(
     modules.route,
     prefix="/modules",
     tags=["Modules"],
-    dependencies=[Depends(get_token_header)],
-    responses={404: {"description": "Not found"}},
+    responses={405: {"description": "Wrong username or password"}},
 
 )
 

@@ -1,0 +1,22 @@
+POST http://127.0.0.1:8000/authenticate
+Content-Type: application/json
+
+{
+  "username": "root",
+  "password": "password123"
+}
+
+###
+POST http://127.0.0.1:8000/authenticate-user
+Content-Type: application/json
+
+{
+  "username": "root",
+  "password": "password123"
+}
+
+###
+GET http://127.0.0.1:8000/databases/32
+Accept: application/json
+
+###

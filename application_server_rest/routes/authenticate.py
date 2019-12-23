@@ -1,32 +1,36 @@
 from fastapi import APIRouter
 from fastapi.encoders import jsonable_encoder
 from starlette.responses import JSONResponse
-import logging
 import uuid
+import logging
+
+from models.in_model import User
+from models.out_model import ClientID, SessionToken
 
 route = APIRouter()
 
 
-@route.post("")
-def authenticate(username: str, password: str):
+@route.post(
+    "",
+    response_model=ClientID,
+    response_model_include=["client_id"],
+)
+def authenticate(user: User):
     """
-    Retourne un le client-id nécessaire pour authentifier les applications clientes et les applications d’administration.
-    :param username: Nom de l'utilisateur
-    :param passwrod: Mot de passe de l'utilisateur
-    :return: {client-id : 9b48918efdad507a55154569ee7ade08005ac494cd528dc63986682776842e80}
+    Génère un client_id nécessaire pour authentifier les applications clientes et les applications d’administration.\n
+    Generate a client_id allowing the client app and admin app to authenticate to the application server.
     """
-    logging.warning("%s %s" % (username, password))
-    data = {'token': uuid.uuid4().hex}
-    content = jsonable_encoder(data)
-    return JSONResponse(content=content)
+    pass
 
 
-@route.post("/user")
-def authenticate_user(username: str, passwrod: str):
+@route.post(
+    "/user",
+    response_model=SessionToken,
+    response_model_include=["session_token"],
+)
+def authenticate_user(user: User):
     """
-    Retourne le token de session nécessaire pour utiliser l’API REST.
-    :param username: Nom de l'utilisateur
-    :param passwrod: Mot de passe de l'utilisateur
-    :return:{session-token : 3c469e9d6c5875d37a43f353d4f88e61fcf812c66eee3457465a40b0da4153e0}
+    Génère le token de session permettant d'authentifier l'utilisateur.\n
+    Generate session token allowing the user to be authenticated.
     """
     pass
