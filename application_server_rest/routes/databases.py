@@ -1,12 +1,17 @@
 from fastapi import APIRouter
-from models.out_model import Database
+from typing import List
+
+from models.out_models import Database
 
 route = APIRouter()
 
 
 @route.get(
     "",
-    response_model=Database
+    response_model=List[Database]
 )
-def list_databases(database_id):
+def list_databases(database_id: int):
+    """
+    Search and list all client databases.
+    """
     pass

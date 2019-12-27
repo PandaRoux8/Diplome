@@ -4,8 +4,8 @@ from starlette.responses import JSONResponse
 import uuid
 import logging
 
-from models.in_model import User
-from models.out_model import ClientID, SessionToken
+from models.in_models import User
+from models.out_models import ClientID, SessionToken
 
 route = APIRouter()
 
@@ -17,7 +17,6 @@ route = APIRouter()
 )
 def authenticate(user: User):
     """
-    Génère un client_id nécessaire pour authentifier les applications clientes et les applications d’administration.\n
     Generate a client_id allowing the client app and admin app to authenticate to the application server.
     """
     pass
@@ -30,7 +29,6 @@ def authenticate(user: User):
 )
 def authenticate_user(user: User):
     """
-    Génère le token de session permettant d'authentifier l'utilisateur.\n
     Generate session token allowing the user to be authenticated.
     """
     pass

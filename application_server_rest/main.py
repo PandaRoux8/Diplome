@@ -13,7 +13,10 @@ app.include_router(
     authenticate.route,
     prefix="/authenticate",
     tags=["Authenticate"],
-    responses={405: {"description": "Wrong username or password"}},
+    responses={
+        401: {"description": "You don't have the permission to do this."},
+        405: {"description": "Wrong username or password"}
+    },
 )
 
 
@@ -21,7 +24,10 @@ app.include_router(
     modules.route,
     prefix="/modules",
     tags=["Modules"],
-    responses={405: {"description": "Wrong username or password"}},
+    responses={
+        401: {"description": "You don't have the permission to do this."},
+        404: {"description": "Module not found."},
+    },
 
 )
 
@@ -30,7 +36,10 @@ app.include_router(
     prefix="/module-profiles",
     tags=["Module Profiles"],
     dependencies=[Depends(get_token_header)],
-    responses={404: {"description": "Not found"}},
+    responses={
+        401: {"description": "You don't have the permission to do this."},
+        404: {"description": "Module profile not found."}
+    },
 )
 
 app.include_router(
@@ -38,7 +47,10 @@ app.include_router(
     prefix="/users",
     tags=["Users"],
     dependencies=[Depends(get_token_header)],
-    responses={404: {"description": "Not found"}},
+    responses={
+        401: {"description": "You don't have the permission to do this."},
+        404: {"description": "User not found."}
+    },
 )
 
 app.include_router(
@@ -46,7 +58,10 @@ app.include_router(
     prefix="/user-profiles",
     tags=["User Profiles"],
     dependencies=[Depends(get_token_header)],
-    responses={404: {"description": "Not found"}},
+    responses={
+        401: {"description": "You don't have the permission to do this."},
+        404: {"description": "User profile not found."}
+    },
 )
 
 app.include_router(
@@ -54,7 +69,10 @@ app.include_router(
     prefix="/file-providers",
     tags=["File Providers"],
     dependencies=[Depends(get_token_header)],
-    responses={404: {"description": "Not found"}, 405: {"description": "Not found"}},
+    responses={
+        401: {"description": "You don't have the permission to do this."},
+        404: {"description": "File provider not found."}
+    },
 )
 
 app.include_router(
@@ -62,5 +80,7 @@ app.include_router(
     prefix="/databases",
     tags=["Databases"],
     dependencies=[Depends(get_token_header)],
-    responses={404: {"description": "Not found"}},
+    responses={
+        401: {"description": "You don't have the permission to do this."},
+    },
 )
