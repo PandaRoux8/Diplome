@@ -4,7 +4,7 @@ from starlette.responses import JSONResponse
 import uuid
 import logging
 
-from models.in_models import User
+from models.in_models import User, ClientApp
 from models.out_models import ClientID, SessionToken
 
 route = APIRouter()
@@ -15,7 +15,7 @@ route = APIRouter()
     response_model=ClientID,
     response_model_include=["client_id"],
 )
-def authenticate(user: User):
+def authenticate(user: User, client_values: ClientApp):
     """
     Generate a client_id allowing the client app and admin app to authenticate to the application server.
     """

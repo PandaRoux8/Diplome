@@ -28,13 +28,3 @@ class Notify(BaseModel):
     state: str
     error_message: str
 
-
-class Database(BaseModel):
-    id: int
-
-
-class ClientApp(BaseModel):
-    address: str
-    user: str
-    password: str
-

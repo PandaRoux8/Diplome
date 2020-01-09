@@ -1,5 +1,6 @@
 from fastapi import FastAPI, Depends, Header, HTTPException
-from routes import authenticate, databases, file_providers, module_profiles, modules, users, user_profiles
+from routes import authenticate, databases, file_providers, module_profiles, modules, users, user_profiles, tasks, \
+                   notify, update_client_data, client_app
 
 
 app = FastAPI()
@@ -79,6 +80,46 @@ app.include_router(
     databases.route,
     prefix="/databases",
     tags=["Databases"],
+    dependencies=[Depends(get_token_header)],
+    responses={
+        401: {"description": "You don't have the permission to do this."},
+    },
+)
+
+app.include_router(
+    tasks.route,
+    prefix="/tasks",
+    tags=["Tasks"],
+    dependencies=[Depends(get_token_header)],
+    responses={
+        401: {"description": "You don't have the permission to do this."},
+    },
+)
+
+app.include_router(
+    notify.route,
+    prefix="/notify",
+    tags=["Notify"],
+    dependencies=[Depends(get_token_header)],
+    responses={
+        401: {"description": "You don't have the permission to do this."},
+    },
+)
+
+app.include_router(
+    update_client_data.route,
+    prefix="/update",
+    tags=["Update client data"],
+    dependencies=[Depends(get_token_header)],
+    responses={
+        401: {"description": "You don't have the permission to do this."},
+    },
+)
+
+app.include_router(
+    client_app.route,
+    prefix="/client-app",
+    tags=["ClientApp"],
     dependencies=[Depends(get_token_header)],
     responses={
         401: {"description": "You don't have the permission to do this."},

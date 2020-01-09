@@ -1,3 +1,4 @@
+from typing import List
 from pydantic import BaseModel
 
 
@@ -16,10 +17,13 @@ class Database(BaseModel):
 
 
 class Module(BaseModel):
-    id: int
     name: str
     version: str
     author: str
+    description: str
+    database_name: str
+    module_profile: List[str]
+    installed: bool
 
 
 class FileProvider(BaseModel):
@@ -46,13 +50,6 @@ class ID(BaseModel):
     id: int
 
 
-class Task(BaseModel):
-    id: int
-
-
-class ClientApp(BaseModel):
-    id: int
-    name: str
-    address: str
-    os: str
-    os_version: str
+class DatabaseModule(BaseModel):
+    database_name: str
+    database: List[Module]
