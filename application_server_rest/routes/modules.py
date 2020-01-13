@@ -10,7 +10,7 @@ route = APIRouter()
     "",
     response_model=List[Module],
 )
-def list_modules(session_token: str = Header(None)):
+def list_modules(session_token: str = Header(None), client_id: str = Header(None)):
     """
     Search and return the list of available modules on all file providers.
     """
@@ -26,7 +26,7 @@ def get_module(module_id: int, task_id: int, client_id: str = Header(None)):
 
 
 @route.post("/install/{module_id}/{database_id}")
-def module_install(module_id: int, database_id: int, task_id: int, session_token: str = Header(None)):
+def module_install(module_id: int, database_id: int, task_id: int, session_token: str = Header(None), client_id: str = Header(None)):
     """
     Send an installation request of the selected module (module_id) on a targeted database (database_id).
     """
@@ -42,7 +42,7 @@ def module_install_everywhere(module_id: int, task_id: int, session_token: str =
 
 
 @route.post("/update/{module_id}/{database_id}")
-def module_update(module_id: int, database_id: int, task_id: int, session_token: str = Header(None)):
+def module_update(module_id: int, database_id: int, task_id: int, session_token: str = Header(None), client_id: str = Header(None)):
     """
     Send an update request of the selected module (module_id) on a targeted database (database_id).
     """
@@ -58,7 +58,7 @@ def module_update_everywhere(module_id: int, task_id: int, session_token: str = 
 
 
 @route.post("/uninstall/{module_id}/{database_id}")
-def module_uninstall(module_id: int, database_id: int, task_id: int, session_token: str = Header(True)):
+def module_uninstall(module_id: int, database_id: int, task_id: int, session_token: str = Header(True), client_id: str = Header(None)):
     """
     Send an uninstalling request of the selected module (module_id) on a targeted database (database_id).
     """
