@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from typing import List
 
 
 class FileProvider(BaseModel):
@@ -31,10 +32,19 @@ class Notify(BaseModel):
 
 class Database(BaseModel):
     id: int
+    name: str
+    uuid: str
+    module_profile: List[int]
+    user: str
+    password: str
+    client_app_id: int
 
 
 class ClientApp(BaseModel):
+    name: str
     address: str
-    user: str
-    password: str
+    os: str
+    os_version: str
+
+
 

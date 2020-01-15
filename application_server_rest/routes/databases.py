@@ -19,8 +19,11 @@ def list_databases():
 
 
 @route.get(
-    "",
+    "/{database_id}",
     response_model=Database
 )
-def get_database(database_id: DI):
+def get_database(database_id: int):
+    """
+    Search for a specific database.
+    """
     pass

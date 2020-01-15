@@ -1,6 +1,6 @@
 from typing import List
 from pydantic import BaseModel
-
+from datetime import datetime
 
 class ClientID(BaseModel):
     client_id: str
@@ -53,3 +53,18 @@ class ID(BaseModel):
 class DatabaseModule(BaseModel):
     database_name: str
     database: List[Module]
+
+
+class Task(BaseModel):
+    id: int
+    name: str
+    priority: str
+    state: str
+    create_date: datetime
+    write_date: datetime
+    origin: str
+    user_name: str
+    action_id: int
+    code: str
+    values: dict
+    error_message: str

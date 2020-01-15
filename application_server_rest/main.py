@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Depends, Header, HTTPException
-from routes import authenticate, databases, file_providers, module_profiles, modules, users, user_profiles, tasks, \
-                   notify, update_client_data, client_app, configuration
+from routes import databases, file_providers, module_profiles, modules, users, user_profiles, tasks, \
+                   update_client_data, client_app, configuration
 
 
 app = FastAPI()
@@ -9,17 +9,6 @@ app = FastAPI()
 async def get_token_header(session_token: str = Header(...)):
     if session_token != "fake-super-secret-token":
         raise HTTPException(status_code=400, detail="Session-Token invalid")
-
-app.include_router(
-    authenticate.route,
-    prefix="/authenticate",
-    tags=["Authenticate"],
-    responses={
-        401: {"description": "You don't have the permission to do this."},
-        405: {"description": "Wrong username or password"}
-    },
-)
-
 
 app.include_router(
     modules.route,
@@ -90,16 +79,6 @@ app.include_router(
     tasks.route,
     prefix="/tasks",
     tags=["Tasks"],
-    dependencies=[Depends(get_token_header)],
-    responses={
-        401: {"description": "You don't have the permission to do this."},
-    },
-)
-
-app.include_router(
-    notify.route,
-    prefix="/notify",
-    tags=["Notify"],
     dependencies=[Depends(get_token_header)],
     responses={
         401: {"description": "You don't have the permission to do this."},

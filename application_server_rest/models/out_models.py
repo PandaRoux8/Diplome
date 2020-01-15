@@ -1,4 +1,6 @@
 from pydantic import BaseModel
+from datetime import datetime
+from typing import List
 
 
 class ClientID(BaseModel):
@@ -13,6 +15,10 @@ class Database(BaseModel):
     id: int
     name: str
     uuid: str
+    module_profile: List[int]
+    user: str
+    password: str
+    client_app_id: int
 
 
 class Module(BaseModel):
@@ -31,6 +37,7 @@ class FileProvider(BaseModel):
 
 class ModuleProfile(BaseModel):
     id: int
+    name: str
 
 
 class UserProfile(BaseModel):
@@ -48,6 +55,17 @@ class ID(BaseModel):
 
 class Task(BaseModel):
     id: int
+    name: str
+    priority: str
+    state: str
+    create_date: datetime
+    write_date: datetime
+    origin: str
+    user_name: str
+    action_id: int
+    code: str
+    values: dict
+    error_message: str
 
 
 class ClientApp(BaseModel):
@@ -56,3 +74,4 @@ class ClientApp(BaseModel):
     address: str
     os: str
     os_version: str
+    client_id: str
