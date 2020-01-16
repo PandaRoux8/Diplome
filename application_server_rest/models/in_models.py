@@ -12,7 +12,8 @@ class FileProvider(BaseModel):
 
 
 class ModuleProfile(BaseModel):
-    name: int
+    name: str
+    module_ids = List[int]
 
 
 class UserProfile(BaseModel):
@@ -20,6 +21,15 @@ class UserProfile(BaseModel):
 
 
 class User(BaseModel):
+    username: str
+    password: str
+    mail: str
+    user_profile_id: int
+    database_ids: List[int]
+    is_admin: bool
+
+
+class UserAuth(BaseModel):
     username: str
     password: str
 

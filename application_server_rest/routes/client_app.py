@@ -2,7 +2,7 @@ from fastapi import APIRouter
 from typing import List
 from models.out_models import ClientApp, ClientID, SessionToken
 from models.in_models import ClientApp as CAI
-from models.in_models import User
+from models.in_models import UserAuth
 
 
 route = APIRouter()
@@ -40,7 +40,7 @@ def delete_client_app(client_app_id: int, user_id: int):
     response_model=ClientID,
     response_model_include=["client_id"],
 )
-def authenticate(user: User, client_values: CAI):
+def authenticate(user: UserAuth, client_values: CAI):
     """
     Generate a client_id allowing the client app and admin app to authenticate to the application server.
     """

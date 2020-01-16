@@ -2,6 +2,7 @@ from typing import List
 from pydantic import BaseModel
 from datetime import datetime
 
+
 class ClientID(BaseModel):
     client_id: str
 
@@ -11,9 +12,9 @@ class SessionToken(BaseModel):
 
 
 class Database(BaseModel):
-    id: int
     name: str
     uuid: str
+    erp_version: str
 
 
 class Module(BaseModel):
@@ -22,7 +23,7 @@ class Module(BaseModel):
     author: str
     description: str
     database_name: str
-    module_profile: List[str]
+    module_profile_ids: List[int]
     installed: bool
 
 
@@ -52,7 +53,7 @@ class ID(BaseModel):
 
 class DatabaseModule(BaseModel):
     database_name: str
-    database: List[Module]
+    modules: List[Module]
 
 
 class Task(BaseModel):

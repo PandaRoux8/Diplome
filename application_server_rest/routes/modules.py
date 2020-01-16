@@ -20,7 +20,7 @@ def list_modules(session_token: str = Header(None), client_id: str = Header(None
 @route.get("/{module_id}")
 def get_module(module_id: int, task_id: int, client_id: str = Header(None)):
     """
-    Search for the module with the parameter module_id. Then, we create and return an archive (.zip) with the file of the module.
+    Search for the module with the parameter module_id. Then, we create and return an archive (.zip) with the files of the module.
     """
     pass
 

@@ -6,7 +6,7 @@ route = APIRouter()
 @route.get("/timeout")
 def get_timeout():
     """
-    Endpoint to get notification for a task
+    Get the configured timeout for the tasks
     """
     pass
 
@@ -14,6 +14,6 @@ def get_timeout():
 @route.post("/timeout")
 def set_timeout(timeout: int):
     """
-    Endpoint to get notification for a task
+    Set a new time for tasks timeout
     """
     pass

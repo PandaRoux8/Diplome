@@ -3,6 +3,7 @@ from typing import List
 
 from models.out_models import User, ID
 from models.in_models import User as IU
+from models.in_models import UserAuth
 from models.out_models import SessionToken
 
 
@@ -61,7 +62,7 @@ def reset_password(user_id: int, password):
     response_model=SessionToken,
     response_model_include=["session_token"],
 )
-def authenticate_user(user: IU):
+def authenticate_user(user: UserAuth):
     """
     Generate session token allowing the user to be authenticated.
     """

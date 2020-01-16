@@ -32,7 +32,7 @@ def list_modules_on_db(db_name: str):
 def module_install(module_id: int, database_name: str):
     """
     Endpoint on which you receive an installation request.
-    Create a task for the installation of the module.
+    Create a task to install the module.
     """
     pass
 
@@ -41,7 +41,7 @@ def module_install(module_id: int, database_name: str):
 def module_update(module_id: int, database_name: int):
     """
     Endpoint on which you receive an update request.
-    Create a task for the update of the module.
+    Create a task to update the module.
     """
     pass
 
@@ -50,6 +50,6 @@ def module_update(module_id: int, database_name: int):
 def module_uninstall(module_id: int, database_name: int):
     """
     Endpoint on which you receive an uninstall request.
-    Create a task for the uninstall of the module.
+    Create a task to uninstall the module.
     """
     pass

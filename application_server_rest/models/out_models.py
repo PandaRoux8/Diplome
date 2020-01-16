@@ -15,9 +15,10 @@ class Database(BaseModel):
     id: int
     name: str
     uuid: str
-    module_profile: List[int]
+    erp_version: str
     user: str
     password: str
+    module_profile_ids: List[int]
     client_app_id: int
 
 
@@ -25,7 +26,10 @@ class Module(BaseModel):
     id: int
     name: str
     version: str
+    description: str
     author: str
+    file_provider_id: int
+    module_profile_ids: List[int]
 
 
 class FileProvider(BaseModel):
@@ -33,11 +37,16 @@ class FileProvider(BaseModel):
     name: str
     type: str
     path: str
+    username: str
+    password: str
+    token: str
+    last_update: datetime
 
 
 class ModuleProfile(BaseModel):
     id: int
     name: str
+    module_ids: List[int]
 
 
 class UserProfile(BaseModel):
@@ -45,8 +54,14 @@ class UserProfile(BaseModel):
 
 
 class User(BaseModel):
+    id: int
     username: str
     password: str
+    mail: str
+    session_token: str
+    user_profile_id: int
+    database_ids: List[int]
+    is_admin: bool
 
 
 class ID(BaseModel):
@@ -60,8 +75,9 @@ class Task(BaseModel):
     state: str
     create_date: datetime
     write_date: datetime
+    target_db_id: int
     origin: str
-    user_name: str
+    user_id: int
     action_id: int
     code: str
     values: dict
