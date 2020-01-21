@@ -14,7 +14,7 @@ route = APIRouter()
 )
 def list_client_app():
     """
-    Search and return all users from database.
+    Search and return all client app from database.
     """
     pass
 
@@ -22,7 +22,7 @@ def list_client_app():
 @route.post("/{client_app_id}")
 def update_client_app(client_app_id: int, client_app_values: CAI):
     """
-    Update the user (with the id passed in parameters) on the database with the values sent in parameters.
+    Update the client app (with the id passed in parameters) on the database with the values sent in parameters.
     """
     pass
 
@@ -30,7 +30,7 @@ def update_client_app(client_app_id: int, client_app_values: CAI):
 @route.delete("/{client_app_id}")
 def delete_client_app(client_app_id: int, user_id: int):
     """
-    Delete the user (with the id passed in parameters) from the database.
+    Delete the client app (with the id passed in parameters) from the database.
     """
     pass
 

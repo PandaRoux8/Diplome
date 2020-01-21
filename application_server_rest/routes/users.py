@@ -52,7 +52,7 @@ def delete_users(user_id: int):
 @route.post("/{user_id}/reset-password")
 def reset_password(user_id: int, password):
     """
-    Reset the password of the user
+    Send an email to the user with the link of the webpage to reset his password
     """
     pass
 
@@ -64,6 +64,8 @@ def reset_password(user_id: int, password):
 )
 def authenticate_user(user: UserAuth):
     """
-    Generate session token allowing the user to be authenticated.
+    Compare password sent with the password on the db.
+    If the passwords match we generate session token that we send back to the user.
+    The user will authenticate himself with this token .
     """
     pass
